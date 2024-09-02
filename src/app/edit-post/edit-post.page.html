@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" [(ngModel)]="post.title" name="title" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Content</ion-label>
+      <ion-textarea [(ngModel)]="post.content" name="content" required></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Category</ion-label>
+      <ion-select [(ngModel)]="post.category" name="category" required>
+        <ion-select-option value="Technology">Technology</ion-select-option>
+        <ion-select-option value="Health">Health</ion-select-option>
+        <ion-select-option value="Lifestyle">Lifestyle</ion-select-option>
+        <ion-select-option value="Business">Business</ion-select-option>
+        <ion-select-option value="Education">Education</ion-select-option>
+        <ion-select-option value="Entertainment">Entertainment</ion-select-option>
+        <ion-select-option value="Travel">Travel</ion-select-option>
+        <ion-select-option value="Food">Food</ion-select-option>
+        <ion-select-option value="Fashion">Fashion</ion-select-option>
+        <ion-select-option value="Science">Science</ion-select-option>
+        <ion-select-option value="Sports">Sports</ion-select-option>
+        <ion-select-option value="Finance">Finance</ion-select-option>
+        <ion-select-option value="Art">Art</ion-select-option>
+        <ion-select-option value="Music">Music</ion-select-option>
+        <ion-select-option value="DIY">DIY</ion-select-option>
+        <ion-select-option value="News">News</ion-select-option>
+        <ion-select-option value="Photography">Photography</ion-select-option>
+        <ion-select-option value="Parenting">Parenting</ion-select-option>
+        <ion-select-option value="Personal Development">Personal Development</ion-select-option>
+        <ion-select-option value="Politics">Politics</ion-select-option>
+        <ion-select-option value="Environment">Environment</ion-select-option>
+        <ion-select-option value="Technology Reviews">Technology Reviews</ion-select-option>
+        <ion-select-option value="Health & Fitness">Health & Fitness</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Save Changes</ion-button>
+  </form>
+</ion-content>
+

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ post?.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="post">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ post.title }}</ion-card-title>
+      <ion-card-subtitle>{{ post.date | date }}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="post.edited">Edited: {{ post.edited | date }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ post.content }}</p>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-button expand="full" color="primary" [routerLink]="['/edit-post', post.id]">Edit Post</ion-button>
+  <ion-button expand="full" color="danger" (click)="onDelete()">Delete Post</ion-button>
+</ion-content>
+

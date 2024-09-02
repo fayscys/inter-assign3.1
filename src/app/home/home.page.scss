@@ -1,27 +1,44 @@
-#container {
+/* Centering the content inside ion-content */
+ion-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+/* Adjusting the position of the intro text */
+#intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 30%; /* Move the intro text up slightly by reducing its height */
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+/* Centering the inner containers */
+#container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 10px; /* Adjust the spacing between intro text and buttons */
 }
 
-#container a {
-  text-decoration: none;
+/* Styling for the individual text-button containers */
+.text-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000000; /* Increase the border thickness */
+  padding: 20px; /* Add padding inside each border */
+  margin: 10px; 
+  border-radius: 10px;
+  height: 250px; /* Increase the height of each container to make them larger */
+  width: 250px; /* Ensure equal width for each container */
+  box-sizing: border-box; /* Ensure padding is included in the height and width */
 }

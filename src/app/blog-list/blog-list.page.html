@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Blog Posts</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="!noPostsFound">
+    <ion-item *ngFor="let post of filteredPosts">
+      <ion-label>
+        <h2>{{ post.title }}</h2>
+        <p>Created: {{ post.date | date }}</p>
+        <p *ngIf="post.edited">Edited: {{ post.edited | date }}</p>
+      </ion-label>
+      <ion-button fill="clear" [routerLink]="['/blog-detail', post.id]">
+        View
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Message for no posts found -->
+  <ion-text color="danger" *ngIf="noPostsFound" class="ion-padding">
+    No posts found for the selected category.
+  </ion-text>
+</ion-content>

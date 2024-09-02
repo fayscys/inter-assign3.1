@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Blog Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,25 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Blog Home</ion-title>
     </ion-toolbar>
   </ion-header>
 
+  <div id="intro-container">
+    <strong>Ready to create a new blog post or view existing posts?</strong>
+  </div>
+  <!-- Container for the text-button sections -->
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- Container for first text and button -->
+    <div class="text-button-container">
+      <p>Start by clicking the button below:</p>
+      <ion-button routerLink="/blog-form">Create New Blog Post</ion-button>
+    </div>
+
+    <!-- Container for second text and button -->
+    <div class="text-button-container">
+      <p> view existing posts:</p>
+      <ion-button routerLink="/blog-list">View Blog Posts</ion-button>
+    </div>
   </div>
 </ion-content>

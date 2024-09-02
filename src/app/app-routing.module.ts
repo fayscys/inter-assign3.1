@@ -11,6 +11,26 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'blog-form',
+    loadChildren: () => import('./blog-form/blog-form.module').then( m => m.BlogFormPageModule)
+  },
+  {
+    path: 'blog-list',
+    loadChildren: () => import('./blog-list/blog-list.module').then( m => m.BlogListPageModule)
+  },
+  {
+    path: 'blog-detail/:id',
+    loadChildren: () => import('./blog-detail/blog-detail.module').then( m => m.BlogDetailPageModule)
+  },
+  {
+    path: 'edit-post/:id',
+    loadChildren: () => import('./edit-post/edit-post.module').then( m => m.EditPostPageModule)
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
+  },
 ];
 
 @NgModule({
