@@ -11,6 +11,10 @@
       <ion-card-subtitle>{{ post.date | date }}</ion-card-subtitle>
       <ion-card-subtitle *ngIf="post.edited">Edited: {{ post.edited | date }}</ion-card-subtitle>
     </ion-card-header>
+    
+    <!-- Image Display -->
+    <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Blog Post Image" style="max-width: 100%; margin-bottom: 15px;" />
+    
     <ion-card-content>
       <p>{{ post.content }}</p>
     </ion-card-content>
@@ -19,4 +23,5 @@
   <ion-button expand="full" color="primary" [routerLink]="['/edit-post', post.id]">Edit Post</ion-button>
   <ion-button expand="full" color="danger" (click)="onDelete()">Delete Post</ion-button>
 </ion-content>
+
 

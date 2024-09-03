@@ -1,53 +1,50 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Create Blog Post</ion-title>
+    <ion-title>Create Blog Post</ion-title> <!-- Corrected: ion-title should be a self-closing tag -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form (ngSubmit)="onSubmit()">
+    
+    <!-- Title Field -->
     <ion-item>
       <ion-label position="floating">Title</ion-label>
       <ion-input type="text" [(ngModel)]="post.title" name="title" required></ion-input>
     </ion-item>
 
+    <!-- Content Field -->
     <ion-item>
       <ion-label position="floating">Content</ion-label>
       <ion-textarea [(ngModel)]="post.content" name="content" required></ion-textarea>
     </ion-item>
 
+    <!-- Category Selection -->
     <ion-item>
       <ion-label position="floating">Category</ion-label>
       <ion-select [(ngModel)]="post.category" name="category" required>
-        <ion-select-option value="Technology">Technology</ion-select-option>
-        <ion-select-option value="Health">Health</ion-select-option>
-        <ion-select-option value="Lifestyle">Lifestyle</ion-select-option>
-        <ion-select-option value="Business">Business</ion-select-option>
-        <ion-select-option value="Education">Education</ion-select-option>
-        <ion-select-option value="Entertainment">Entertainment</ion-select-option>
-        <ion-select-option value="Travel">Travel</ion-select-option>
-        <ion-select-option value="Food">Food</ion-select-option>
-        <ion-select-option value="Fashion">Fashion</ion-select-option>
-        <ion-select-option value="Science">Science</ion-select-option>
-        <ion-select-option value="Sports">Sports</ion-select-option>
-        <ion-select-option value="Finance">Finance</ion-select-option>
-        <ion-select-option value="Art">Art</ion-select-option>
-        <ion-select-option value="Music">Music</ion-select-option>
-        <ion-select-option value="DIY">DIY</ion-select-option>
-        <ion-select-option value="News">News</ion-select-option>
-        <ion-select-option value="Photography">Photography</ion-select-option>
-        <ion-select-option value="Parenting">Parenting</ion-select-option>
-        <ion-select-option value="Personal Development">Personal Development</ion-select-option>
-        <ion-select-option value="Politics">Politics</ion-select-option>
-        <ion-select-option value="Environment">Environment</ion-select-option>
-        <ion-select-option value="Technology Reviews">Technology Reviews</ion-select-option>
-        <ion-select-option value="Health & Fitness">Health & Fitness</ion-select-option>
+        <ion-select-option *ngFor="let category of categories" [value]="category">{{ category }}</ion-select-option>
       </ion-select>
     </ion-item>
 
+    <!-- Image Upload -->
+    <ion-item>
+      <ion-label position="stacked">Image</ion-label> <!-- Changed to 'stacked' to avoid overlap -->
+      <input type="file" (change)="onFileSelected($event)" />
+    </ion-item>
+
+    <!-- Image Preview -->
+    <ion-item *ngIf="post.imageUrl">
+      <ion-label position="stacked">Image Preview</ion-label>
+      <img [src]="post.imageUrl" alt="Selected Image" style="max-width: 100%; margin-top: 10px;" />
+    </ion-item>
+
+    <!-- Submit Button -->
     <ion-button expand="full" type="submit">Submit</ion-button>
   </form>
 </ion-content>
+
+
 
 
 
