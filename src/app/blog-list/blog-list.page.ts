@@ -12,7 +12,7 @@ export class BlogListPage implements OnInit {
   posts: any[] = [];
   filteredPosts: any[] = [];
   selectedCategory: string = 'all';
-  noPostsFound: boolean = false;  // Tracks if no posts are found
+  noPostsFound: boolean = false;
 
   constructor(private firestore: AngularFirestore, private route: ActivatedRoute) {}
 
@@ -28,12 +28,14 @@ export class BlogListPage implements OnInit {
   }
 
   loadPosts() {
-    this.firestore.collection('posts').valueChanges({ idField: 'id' }).subscribe((data: any[]) => {
-      this.posts = data;
-      this.filterPostsByCategory();  // Filter posts when they are loaded
-    }, error => {
-      console.error('Error loading posts:', error);
-    });
+    this.firestore.collection('posts', ref => ref.orderBy('date', 'desc'))  // Order by date in descending order
+      .valueChanges({ idField: 'id' })
+      .subscribe((data: any[]) => {
+        this.posts = data;
+        this.filterPostsByCategory();  // Filter posts when they are loaded
+      }, error => {
+        console.error('Error loading posts:', error);
+      });
   }
 
   filterPostsByCategory() {
@@ -42,7 +44,7 @@ export class BlogListPage implements OnInit {
     } else {
       this.filteredPosts = this.posts.filter(post => post.category === this.selectedCategory);
     }
-    
+
     // Check if no posts are found for the selected category
     this.noPostsFound = this.filteredPosts.length === 0;
   }
