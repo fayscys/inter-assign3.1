@@ -11,11 +11,8 @@
       <ion-card-subtitle>{{ post.date | date }}</ion-card-subtitle>
       <ion-card-subtitle *ngIf="post.edited">Edited: {{ post.edited | date }}</ion-card-subtitle>
     </ion-card-header>
-    
-    <!-- Image Display -->
-    <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Blog Post Image" style="max-width: 100%; margin-bottom: 15px;" />
-    
     <ion-card-content>
+      <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" style="width: 100%; max-height: 400px; object-fit: cover;">
       <p>{{ post.content }}</p>
     </ion-card-content>
   </ion-card>

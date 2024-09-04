@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Create Blog Post</ion-title> <!-- Corrected: ion-title should be a self-closing tag -->
+    <ion-title>Create Blog Post</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,39 +10,51 @@
     <!-- Title Field -->
     <ion-item>
       <ion-label position="floating">Title</ion-label>
-      <ion-input type="text" [(ngModel)]="post.title" name="title" required></ion-input>
+      <ion-input type="text" [(ngModel)]="post.title" name="title" required></ion-input> <!-- Added name="title" -->
     </ion-item>
 
     <!-- Content Field -->
     <ion-item>
       <ion-label position="floating">Content</ion-label>
-      <ion-textarea [(ngModel)]="post.content" name="content" required></ion-textarea>
+      <ion-textarea [(ngModel)]="post.content" name="content" required></ion-textarea> <!-- Added name="content" -->
     </ion-item>
 
     <!-- Category Selection -->
     <ion-item>
       <ion-label position="floating">Category</ion-label>
-      <ion-select [(ngModel)]="post.category" name="category" required>
+      <ion-select [(ngModel)]="post.category" name="category" required> <!-- Added name="category" -->
         <ion-select-option *ngFor="let category of categories" [value]="category">{{ category }}</ion-select-option>
       </ion-select>
     </ion-item>
 
+    <!-- New Category Input -->
+    <ion-item>
+      <ion-label position="floating">New Category</ion-label>
+      <ion-input type="text" [(ngModel)]="newCategory" name="newCategory"></ion-input> <!-- Added name="newCategory" -->
+    </ion-item>
+    <ion-button expand="full" type="button" (click)="addCategory()">Add Category</ion-button>
+
+    <!-- List of Categories with Delete Option -->
+    <ion-list>
+      <ion-item *ngFor="let category of categories">
+        <ion-label>{{ category }}</ion-label>
+        <ion-button color="danger" fill="clear" (click)="deleteCategory(category)">
+          Delete
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
     <!-- Image Upload -->
     <ion-item>
-      <ion-label position="stacked">Image</ion-label> <!-- Changed to 'stacked' to avoid overlap -->
+      <ion-label position="stacked">Image</ion-label>
       <input type="file" (change)="onFileSelected($event)" />
-    </ion-item>
-
-    <!-- Image Preview -->
-    <ion-item *ngIf="post.imageUrl">
-      <ion-label position="stacked">Image Preview</ion-label>
-      <img [src]="post.imageUrl" alt="Selected Image" style="max-width: 100%; margin-top: 10px;" />
     </ion-item>
 
     <!-- Submit Button -->
     <ion-button expand="full" type="submit">Submit</ion-button>
   </form>
 </ion-content>
+
 
 
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-blog-form',
@@ -14,18 +14,51 @@ export class BlogFormPage {
     content: '',
     category: '',
     date: '',
-    imageUrl: '' // Stores the Base64 image string
+    imageUrl: ''
   };
 
   newCategory: string = ''; // For the new category input
   categories: string[] = []; // Array to hold categories
 
-  private apiKey = '$2a$10$Pjo.Uw6T477fr03n1GUrveeCl.0Q6Au6vcfp6gHXUfaJLTFcD9EOO'; 
-  private binId = '66d41b23e41b4d34e4286c32'; 
-  private apiUrl = `https://api.jsonbin.io/v3/b/${this.binId}`; 
-
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private firestore: AngularFirestore, private router: Router) {
     this.loadCategories();
+  }
+
+  // Load categories from Firebase
+  loadCategories() {
+    this.firestore.collection('categories').valueChanges().subscribe((categories: any) => {
+      this.categories = categories.map((category: any) => category.name);
+    }, error => {
+      console.error('Error loading categories:', error);
+    });
+  }
+
+  // Add a new category
+  addCategory() {
+    if (this.newCategory.trim() && !this.categories.includes(this.newCategory.trim())) {
+      const category = { name: this.newCategory.trim() };
+      this.firestore.collection('categories').add(category).then(() => {
+        this.categories.push(this.newCategory.trim());
+        this.newCategory = '';
+      }).catch(error => {
+        console.error('Error adding category:', error);
+      });
+    }
+  }
+
+  // Delete a category
+  deleteCategory(category: string) {
+    const categoryDoc = this.firestore.collection('categories', ref => ref.where('name', '==', category)).get();
+    categoryDoc.subscribe(snapshot => {
+      snapshot.forEach(doc => {
+        doc.ref.delete().then(() => {
+          console.log(`Category '${category}' deleted`);
+          this.categories = this.categories.filter(c => c !== category);
+        }).catch(error => {
+          console.error('Error deleting category:', error);
+        });
+      });
+    });
   }
 
   // Handle image selection
@@ -40,65 +73,16 @@ export class BlogFormPage {
     reader.readAsDataURL(file); // Read the file as a data URL (Base64)
   }
 
-  // Load categories from JSONBin
-  loadCategories() {
-    this.http.get(this.apiUrl, {
-      headers: { 'X-Master-Key': this.apiKey }
-    }).subscribe((response: any) => {
-      if (response && response.record && response.record.categories) {
-        this.categories = response.record.categories;
-      }
-    }, error => {
-      console.error('Error loading categories:', error);
-    });
-  }
-
-  // Add a new category
-  addCategory() {
-    if (this.newCategory.trim() && !this.categories.includes(this.newCategory.trim())) {
-      this.categories.push(this.newCategory.trim());
-      this.newCategory = '';
-      this.saveCategories(); // Save the updated categories list
-    }
-  }
-
-  // Save categories to JSONBin
-  saveCategories() {
-    this.http.put(this.apiUrl, { categories: this.categories }, {
-      headers: { 'X-Master-Key': this.apiKey }
-    }).subscribe(response => {
-      console.log('Categories updated:', response);
-      this.loadCategories(); // Reload categories to reflect updates
-    }, error => {
-      console.error('Error updating categories:', error);
-    });
-  }
-
   // Submit the blog post
   onSubmit() {
-    this.post.id = new Date().getTime().toString(); // Assign unique ID
+    this.post.id = this.firestore.createId(); // Generate a unique ID
     this.post.date = new Date().toISOString(); // Auto-stamp date and time
 
-    // Fetch existing posts from JSONBin
-    this.http.get(this.apiUrl, {
-      headers: { 'X-Master-Key': this.apiKey }
-    }).subscribe((response: any) => {
-      const existingPosts = response.record.posts || [];
-
-      // Add the new post to the existing posts array
-      existingPosts.push(this.post);
-
-      // Update JSONBin with the new posts array
-      this.http.put(this.apiUrl, { posts: existingPosts, categories: this.categories }, {
-        headers: { 'X-Master-Key': this.apiKey }
-      }).subscribe(response => {
-        console.log('Post saved:', response);
-        this.router.navigate(['/']); // Redirect to home page after submission
-      }, error => {
-        console.error('Error saving post:', error);
-      });
-    }, error => {
-      console.error('Error fetching existing posts:', error);
+    this.firestore.collection('posts').doc(this.post.id).set(this.post).then(() => {
+      console.log('Post saved successfully');
+      this.router.navigate(['/blog-list']); // Redirect to blog list after submission
+    }).catch(error => {
+      console.error('Error saving post:', error);
     });
   }
 }

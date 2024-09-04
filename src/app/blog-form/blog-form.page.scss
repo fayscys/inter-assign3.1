@@ -1,44 +1,64 @@
-/* Styling the ion-select popover (category list) */
+/* Existing Styling for ion-select popover */
 ion-select-popover {
-    --background: #000000; /* Set background to black */
-    border: 0.5px solid #ffffff; /* Add a white border around the popover */
-  }
-  
-  /* Styling each category option */
-  ion-select-popover ion-select-option {
-    --background: #000000; /* Ensure each option has a black background */
-    --color: #ffffff; /* White text by default */
-  }
-  
-  ion-select-popover ion-select-option:hover {
-    --color: #12f7ff; /* Change text to cyan on hover */
-  }
-  
-  /* Styling for the Cancel/OK buttons in the popover */
-  ion-select-popover ion-footer {
-    border-top: 0.5px solid #ffffff; /* Add a white border at the top of the footer */
-    --background: #000000; /* Set background to black */
-  }
-  
-  ion-select-popover ion-footer ion-button {
-    --color: #ffffff; /* White text by default */
-  }
-  
-  ion-select-popover ion-footer ion-button:hover {
-    --color: #12f7ff; /* Change text to cyan on hover */
-  }
-  
-  /* Styling the scrollbar within the popover */
-  ion-select-popover ::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  ion-select-popover ::-webkit-scrollbar-thumb {
-    background-color: #12f7ff; /* Cyan scrollbar thumb */
-    border-radius: 10px;
-  }
-  
-  ion-select-popover ::-webkit-scrollbar-track {
-    background-color: #000000; /* Black scrollbar track */
-  }
-  
+  --background: #000000; /* Set background to black */
+  border: 0.5px solid #ffffff; /* Add a white border around the popover */
+}
+
+ion-select-popover ion-select-option {
+  --background: #000000; /* Ensure each option has a black background */
+  --color: #ffffff; /* White text by default */
+}
+
+ion-select-popover ion-select-option:hover {
+  --color: #12f7ff; /* Change text to cyan on hover */
+}
+
+ion-select-popover ion-footer {
+  border-top: 0.5px solid #ffffff; /* Add a white border at the top of the footer */
+  --background: #000000; /* Set background to black */
+}
+
+ion-select-popover ion-footer ion-button {
+  --color: #ffffff; /* White text by default */
+}
+
+ion-select-popover ion-footer ion-button:hover {
+  --color: #12f7ff; /* Change text to cyan on hover */
+}
+
+ion-select-popover ::-webkit-scrollbar {
+  width: 6px;
+}
+
+ion-select-popover ::-webkit-scrollbar-thumb {
+  background-color: #12f7ff; /* Cyan scrollbar thumb */
+  border-radius: 10px;
+}
+
+ion-select-popover ::-webkit-scrollbar-track {
+  background-color: #000000; /* Black scrollbar track */
+}
+
+/* Add this for proper scrolling in ion-content */
+ion-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  overflow-y: auto; /* Ensure vertical scrolling */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+ion-item {
+  margin-bottom: 15px;
+}
+
+ion-button {
+  margin-top: 20px;
+  align-self: center; /* Center the button horizontally */
+}
